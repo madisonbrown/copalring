@@ -44,6 +44,7 @@ else
     #install rsa keys
     rsync --archive --chown=$DEV_USER:$DEV_USER ~/.ssh /home/$DEV_USER
     cat /dev/zero | ssh-keygen -q -f /home/$DEV_USER/.ssh/id_rsa -N ""
+    chown -R $DEV_USER:$DEV_USER /home/$DEV_USER
     #prepare installation folder
     rm -rf $_target_/.temp
     chown -R $DEV_USER:$DEV_USER $_target_

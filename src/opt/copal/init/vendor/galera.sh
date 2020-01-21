@@ -22,7 +22,7 @@ sudo ln -s $_target_/data/locals/galera.cnf ./galera.cnf
 #synchronize peer configurations
 cd $_target_
 hkey=$(sed "s/localhost //g" <<< $(ssh-keyscan -t ssh-rsa localhost))
-sync="bash $_config_/sync.sh add '$NODE_IP' '$hkey'"
+sync="copal sync add '$NODE_IP' '$hkey'"
 eval "$sync" && copal cycle -e "$sync"
 unset hkey && unset sync
 #initialize service
