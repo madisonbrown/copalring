@@ -13,5 +13,6 @@ rm debian/*.ex
 cp -a $DIR/src $TARGET
 debuild
 #
+rm /var/www/html/*.deb
 cd .. && mv $NAME'_1.0-1_all.deb' /var/www/html/$NAME.deb
 cd .. && rm -rf temp
