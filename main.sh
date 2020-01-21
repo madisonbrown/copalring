@@ -4,7 +4,7 @@ NAME=$(basename $DIR)
 #
 git merge working
 #
-TARGET=$DIR/temp/$NAME-$1
+TARGET=$DIR/temp/$NAME-1.0
 mkdir temp && mkdir $TARGET
 cd $TARGET && dh_make --indep --createorig
 echo './src/* ./' > debian/install
