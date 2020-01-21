@@ -1,5 +1,5 @@
 #!/bin/bash
-cd $indir/config/galera
+cd $_defaults_/galera
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv BC19DDBA
 sudo cp galera.list /etc/apt/sources.list.d
 sudo cp galera.pref /etc/apt/preferences.d
@@ -16,14 +16,14 @@ cd /etc/mysql/conf.d
 sudo sed -i "s/{NODE_IP}/$NODE_IP/g" galera.cnf
 sudo sed -i "s/{NODE_NAME}/$NODE_NAME/g" galera.cnf
 #entrust galera config files
-cp galera.cnf $outdir/state
+cp galera.cnf $_target_/data/locals
 sudo rm galera.cnf
-sudo ln -s $outdir/state/galera.cnf ./galera.cnf
+sudo ln -s $_target_/data/locals/galera.cnf ./galera.cnf
 #synchronize peer configurations
-cd $outdir
-hkey=$(sed "s/localhost /$host/g" <<< $(ssh-keyscan -t ssh-rsa localhost))
-sync="bash $outdir/sync.sh add '$NODE_IP' '$hkey'"
-eval "$sync" && bash cycle.sh "$sync" -e
+cd $_target_
+hkey=$(sed "s/localhost //g" <<< $(ssh-keyscan -t ssh-rsa localhost))
+sync="bash $_config_/sync.sh add '$NODE_IP' '$hkey'"
+eval "$sync" && copal cycle -e "$sync"
 unset hkey && unset sync
 #initialize service
 sudo systemctl enable mysql
