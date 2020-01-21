@@ -1,6 +1,6 @@
 #!/bin/bash
 cmd=$1 && args=${@:2}
-cd /usr/local/bin/copal;
+cd /opt/copal;
 if [[ -f $cmd ]]; then
     . $cmd.sh $args
 elif [[ -d $cmd ]]; then

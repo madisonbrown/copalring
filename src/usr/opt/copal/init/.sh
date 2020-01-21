@@ -1,8 +1,8 @@
 #!/bin/bash
 _target_=/etc/copal
 _defaults_=/usr/share/copal/defaults
-_vendor_=/usr/local/bin/copal/init/vendor
-_config_=/usr/local/bin/copal/init/config
+_vendor_=/opt/copal/init/vendor
+_config_=/opt/copal/init/config
 _globals_=$_target_/data/globals
 #
 if [[ -f $_globals_/cluster.sh ]]; then
