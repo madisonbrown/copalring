@@ -4,6 +4,7 @@ _defaults_=/usr/share/copal/defaults
 _vendor_=/opt/copal/init/vendor
 _config_=/opt/copal/init/config
 _globals_=$_target_/data/globals
+_locals_=$_target_/data/locals
 #
 if [[ -f $_globals_/cluster.sh ]]; then
   BOOTSTRAP=$1
@@ -22,7 +23,7 @@ if [[ -f $_globals_/cluster.sh ]]; then
   #complete
   clear && echo -e "Installation successful!\n"
 else
-  if [[ -d /etc/copal ]];then
+  if [[ -f $_locals_/node.sh ]];then
     echo "Copal has already been installed on this system and cannot be installed again."
   elif [[ $(whoami) != "root" ]]; then
     echo "Copal must be initialized by the root user."
@@ -41,11 +42,11 @@ else
     usermod -aG sudo $DEV_USER
     #install rsa keys
     rsync --archive --chown=$DEV_USER:$DEV_USER ~/.ssh /home/$DEV_USER
-    cat /dev/zero | ssh-keygen -q -f /home/$DEV_USER/id_rsa -N ""
-    #create target install directory
-    mkdir $_target_ && chown $DEV_USER:$DEV_USER $_target_
-    cp -a $_defaults_/copal/* $_target_
+    cat /dev/zero | ssh-keygen -q -f /home/$DEV_USER/.ssh/id_rsa -N ""
+    #prepare installation folder
+    rm -rf $_target_/.temp
+    chown $DEV_USER:$DEV_USER $_target_
     #continue installation as dev user
-    sudo -u $DEV_USER -H sh -c "bash $0 $BOOTSTRAP" && su - $DEV_USER
+    sudo -u $DEV_USER -H sh -c "bash copal init $BOOTSTRAP" && su - $DEV_USER
   fi
 fi
