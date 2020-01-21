@@ -12,7 +12,8 @@ if [[ -f $_globals_/cluster.sh ]]; then
   . $_globals_/cluster.sh
   . $_config_/node.sh
   #install vendor software
-  sudo apt update && sudo apt upgrade -y
+  sudo apt update
+  #sudo apt upgrade -y
   . $_vendor_/apache.sh
   . $_vendor_/galera.sh
   . $_vendor_/php.sh
@@ -45,7 +46,7 @@ else
     cat /dev/zero | ssh-keygen -q -f /home/$DEV_USER/.ssh/id_rsa -N ""
     #prepare installation folder
     rm -rf $_target_/.temp
-    chown $DEV_USER:$DEV_USER $_target_
+    chown -R $DEV_USER:$DEV_USER $_target_
     #continue installation as dev user
     sudo -u $DEV_USER -H sh -c "bash copal init $BOOTSTRAP" && su - $DEV_USER
   fi
