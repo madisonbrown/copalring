@@ -1,4 +1,4 @@
 #!/bin/bash
+. /etc/copal/data/locals/node.sh
 git merge stage && git --work-tree=../ checkout -f
-repo=$(pwd) && cd /etc/copal && . state/node.sh
-copal cycle -e "cd $repo && git --work-tree=../ pull ssh://$DEV_USER@$NODE_IP$repo"
+repo=$(pwd) && copal cycle -e "cd $repo && git --work-tree=../ pull ssh://$DEV_USER@$NODE_IP$repo"
