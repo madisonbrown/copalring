@@ -52,6 +52,7 @@ else
     echo -e "$DEV_PW\n$DEV_PW" | passwd $DEV_USER
     usermod -aG sudo $DEV_USER
     #install rsa keys
+    cat ~/.ssh/id_rsa.pub >> ~/.ssh/known_hosts
     cp -a ~/.ssh /home/$DEV_USER
     chown -R $DEV_USER:$DEV_USER /home/$DEV_USER/.ssh
     #prepare installation folder
