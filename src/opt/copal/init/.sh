@@ -58,7 +58,9 @@ else
     #install rsa keys
     cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
     ln -s $_globals_/known_hosts ~/.ssh
+    read test
     cp -a ~/.ssh /home/$DEV_USER
+    read test
     chown -R $DEV_USER:$DEV_USER /home/$DEV_USER/.ssh
     #prepare installation folder
     #rm -rf $_target_/.temp
