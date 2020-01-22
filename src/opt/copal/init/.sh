@@ -25,6 +25,7 @@ if [[ -f $_globals_/cluster.sh ]]; then
   . $_config_/ufw.sh
   #complete
   clear && echo -e "Installation successful!\n"
+  sudo mysql -u root -e "SHOW STATUS LIKE 'wsrep_cluster_size'"
 else
   if [[ -f $_locals_/node.sh ]];then
     echo "Copal has already been installed on this system and cannot be installed again."
@@ -58,9 +59,7 @@ else
     #install rsa keys
     cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
     ln -s $_globals_/known_hosts ~/.ssh
-    read test
     cp -a ~/.ssh /home/$DEV_USER
-    read test
     chown -R $DEV_USER:$DEV_USER /home/$DEV_USER/.ssh
     #prepare installation folder
     #rm -rf $_target_/.temp

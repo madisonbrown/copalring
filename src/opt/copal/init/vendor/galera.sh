@@ -14,7 +14,7 @@ sed -i "s/{CLUSTER_NAME}/$CLUSTER_NAME/g" galera.cnf
 sed -i "s/{CLUSTER_IPS}/$NODE_IP/g" galera.cnf
 sed -i "s/{NODE_IP}/$NODE_IP/g" galera.cnf
 sed -i "s/{NODE_NAME}/$NODE_NAME/g" galera.cnf
-sudo ln -s galera.cnf /etc/mysql/conf.d/galera.cnf
+sudo ln -s $_target_/data/locals/galera.cnf /etc/mysql/conf.d
 #synchronize peer configurations
 hkey=$(sed "s/localhost //g" <<< $(ssh-keyscan -t ssh-rsa localhost))
 sync="copal sync add '$NODE_IP' '$hkey'"
