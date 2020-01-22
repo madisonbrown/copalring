@@ -34,17 +34,21 @@ else
     read -p "Connect to existing cluster? [Y/n]" BOOTSTRAP
     if ([[ $BOOTSTRAP == "n" || $BOOTSTRAP == "N" ]]); then
       BOOTSTRAP=1
-      . $_config_/cluster.sh
       #create cluster rsa key
       cat /dev/zero | ssh-keygen -q -f ~/.ssh/id_rsa -N ""
       chmod 400 ~/.ssh/id_rsa
+      #prepare cluster global config
+      touch $_globals_/peers.list && touch $_globals_/known_hosts
+      . $_config_/cluster.sh
     else
       BOOTSTRAP=0
       read -p "Donor Node IP: " peer
+      #install cluster rsa key
       echo -e "Please paste the cluster serial...\n"
       bash $_config_/transfer.sh ~/.ssh && chmod 400 ~/.ssh/id_rsa
-      scp -r root@$peer:$_globals_ $(dirname $_globals_) && unset peer
-      rm ~/.ssh/known_hosts && ln -s $_globals_/known_hosts ~/.ssh
+      #download cluster global config
+      scp -r root@$peer:$_globals_ $(dirname $_globals_)
+      rm ~/.ssh/known_hosts && unset peer
       . $_globals_/cluster.sh
     fi
     #create dev user
@@ -53,6 +57,7 @@ else
     usermod -aG sudo $DEV_USER
     #install rsa keys
     cat ~/.ssh/id_rsa.pub >> ~/.ssh/known_hosts
+    ln -s $_globals_/known_hosts ~/.ssh
     cp -a ~/.ssh /home/$DEV_USER
     chown -R $DEV_USER:$DEV_USER /home/$DEV_USER/.ssh
     #prepare installation folder
