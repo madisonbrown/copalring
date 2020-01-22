@@ -35,20 +35,27 @@ else
     if ([[ $BOOTSTRAP == "n" || $BOOTSTRAP == "N" ]]); then
       BOOTSTRAP=1
       . $_config_/cluster.sh
+      #create cluster rsa key
+      cat /dev/zero | ssh-keygen -q -f ~/.ssh/id_rsa -N ""
+      chmod 400 id_rsa
     else
       BOOTSTRAP=0
-      bash $_config_/transfer.sh
+      read -p "Donor Node IP: " peer
+      echo -e "Please paste the cluster serial...\n"
+      bash $_config_/transfer.sh ~/.ssh && chmod 400 id_rsa
+      scp -r root@$peer:$_globals_ $(dirname $_globals_) && unset peer
+      rm ~/.ssh/known_hosts && ln -s $_globals_/known_hosts ~/.ssh
+      . $_globals_/cluster.sh
     fi
     #create dev user
     adduser $DEV_USER --gecos "" --disabled-password
     echo -e "$DEV_PW\n$DEV_PW" | passwd $DEV_USER
     usermod -aG sudo $DEV_USER
     #install rsa keys
-    rsync --archive --chown=$DEV_USER:$DEV_USER ~/.ssh /home/$DEV_USER
-    cat /dev/zero | ssh-keygen -q -f /home/$DEV_USER/.ssh/id_rsa -N ""
-    chown -R $DEV_USER:$DEV_USER /home/$DEV_USER
+    cp -a ~/.ssh /home/$DEV_USER
+    chown -R $DEV_USER:$DEV_USER /home/$DEV_USER/.ssh
     #prepare installation folder
-    rm -rf $_target_/.temp
+    #rm -rf $_target_/.temp
     chown -R $DEV_USER:$DEV_USER $_target_
     #continue installation as dev user
     sudo -u $DEV_USER -H sh -c "bash copal init $BOOTSTRAP" && su - $DEV_USER

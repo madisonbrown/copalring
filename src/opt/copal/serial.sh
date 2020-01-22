@@ -1,8 +1,9 @@
 #!/bin/bash
-echo > _temp
-file=~/.ssh/id_rsa && echo "@$file" >> _temp && cat $file >> _temp
-file=~/.ssh/id_rsa.pub && echo "@$file" >> _temp && cat $file >> _temp
-file=~/.ssh/known_hosts && echo "@$file" >> _temp && cat $file >> _temp
-file=/etc/copal/data/globals/cluster.sh && echo "@$file" >> _temp && cat $file >> _temp 
-file=/etc/copal/data/globals/peers.list && echo "@$file" >> _temp && cat $file >> _temp
-base64 _temp && rm _temp
+temp=/tmp/copal && echo > $temp
+echo "@id_rsa" >> $temp && cat ~/.ssh/id_rsa >> $temp
+echo "@id_rsa.pub" >> $temp && cat ~/.ssh/id_rsa.pub >> $temp
+# file=~/.ssh/known_hosts && echo "@$file" >> $temp && cat $file >> $temp
+# file=/etc/copal/data/globals/cluster.sh && echo "@$file" >> $temp && cat $file >> $temp 
+# file=/etc/copal/data/globals/peers.list && echo "@$file" >> $temp && cat $file >> $temp
+clear && echo -e "Copal Cluster Serial:\n"
+base64 $temp && rm $temp && echo
