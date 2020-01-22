@@ -14,11 +14,13 @@ if [[ -f $_globals_/cluster.sh ]]; then
   #install vendor software
   sudo apt update
   #sudo apt upgrade -y
+  mkdir /tmp/copal
   . $_vendor_/apache.sh
   . $_vendor_/galera.sh
   . $_vendor_/php.sh
   . $_vendor_/phpmyadmin.sh
   . $_vendor_/git.sh
+  rm -rf /tmp/copal
   #enable firewall
   . $_config_/ufw.sh
   #complete
