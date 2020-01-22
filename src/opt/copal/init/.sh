@@ -37,12 +37,12 @@ else
       . $_config_/cluster.sh
       #create cluster rsa key
       cat /dev/zero | ssh-keygen -q -f ~/.ssh/id_rsa -N ""
-      chmod 400 id_rsa
+      chmod 400 ~/.ssh/id_rsa
     else
       BOOTSTRAP=0
       read -p "Donor Node IP: " peer
       echo -e "Please paste the cluster serial...\n"
-      bash $_config_/transfer.sh ~/.ssh && chmod 400 id_rsa
+      bash $_config_/transfer.sh ~/.ssh && chmod 400 ~/.ssh/id_rsa
       scp -r root@$peer:$_globals_ $(dirname $_globals_) && unset peer
       rm ~/.ssh/known_hosts && ln -s $_globals_/known_hosts ~/.ssh
       . $_globals_/cluster.sh
