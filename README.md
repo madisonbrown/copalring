@@ -1,7 +1,9 @@
 <b>Copal Ring</b>
+
 Copal Ring is a server cluster management tool which allows for rapid deployment of web applications and services. It is intended to provide an ideal runtime environemnt for applications written using the copal application framework.
 
 OVERVIEW
+
 Copal Ring will install and configure a typical LAMP stack on each node, plus Galera Cluster for database syncrhonization and Git for filesystem synchronization.
 Nodes are added to the cluster simply by running the installer on a new server and providing the IP address of an exisitng node as well as it's rsa key data.
 Nodes can be removed from the cluster via the commandline of the target server.
@@ -9,8 +11,10 @@ Commands can be run on all servers automatically via the commandline of any sing
 Applications and certain configuration changes can be deployed by pushing to automatically prepared git repositories on any single server in the cluster.
 
 USE
+
 Copal Ring must be installed on a fresh image of Ubuntu 18.04 as the root user.
 
+<pre>
   #to build the debian packages from scratch:
   #starting in /root:
   apt update
@@ -50,3 +54,4 @@ Copal Ring must be installed on a fresh image of Ubuntu 18.04 as the root user.
   git add .
   git commit -m "initial"
   git push
+  </pre>
