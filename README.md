@@ -1,6 +1,6 @@
 <b>Copal Ring</b>
 
-Copal Ring is a server cluster management tool which allows for rapid deployment of web applications and services. It is intended to provide an ideal runtime environemnt for applications written using the copal application framework.
+Copal Ring is a server cluster management tool which allows for rapid deployment of web applications and services. It is intended to provide an ideal runtime environment for applications written on the Copal Application Framework.
 
 OVERVIEW
 
@@ -31,7 +31,9 @@ Copal Ring must be installed on a fresh image of Ubuntu 18.04 as the root user.
   #to initialize a node
   copal init
   #
-  #to perform a task synchronously:
+  #to view encoded rsa key data (for adding a node to an existing cluster)
+  copal serial
+  #to perform a task synchronously on all nodes:
   copal cycle "echo hostname"
   #
   #to remove a node
