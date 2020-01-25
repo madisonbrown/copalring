@@ -33,11 +33,16 @@ Copal Ring must be installed on a fresh image of Ubuntu 18.04 as the root user.
   #
   #to view encoded rsa key data (for adding a node to an existing cluster)
   copal serial
-  #to perform a task synchronously on all nodes:
-  copal cycle "echo hostname"
+  #
+  #to view the ip address of all peers or of a random peer
+  copal peer -a && copal peer -r
+  #to perform a task synchronously on all nodes or all nodes excluding the origin:
+  copal cycle "echo hostname" && copal cycle -e "echo hostname"
   #
   #to remove a node
   copal sync remove 10.20.30.40
+  #to return a node
+  copal sync add 10.20.30.40
   #
   #to edit the apache configuration files:
   #from the development system:
