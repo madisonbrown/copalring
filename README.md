@@ -4,7 +4,7 @@ Copal Ring is a server cluster management tool which allows for rapid deployment
 
 OVERVIEW
 
-Copal Ring will install and configure a typical LAMP stack on each node, plus Galera Cluster for database syncrhonization and Git for filesystem synchronization.
+Copal Ring will install and configure a typical LAMP stack on each node, plus Galera Cluster for database synchronization and Git for filesystem synchronization.
 Nodes are added to the cluster simply by running the installer on a new server and providing the IP address of an exisitng node as well as it's rsa key data.
 Nodes can be removed from the cluster via the commandline of the target server.
 Commands can be run on all servers automatically via the commandline of any single server in the cluster.
